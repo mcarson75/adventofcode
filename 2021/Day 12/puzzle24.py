@@ -18,8 +18,6 @@ def dfs(u, b):
     for v in graph[u]:
         if v.isupper() or visited[v] == 0:
             dfs(v, b)
-        # elif visited[v] == 0:
-        #     dfs(v, b)
         elif visited[v] == 1 and not b:
             dfs(v, True)
     
