@@ -27,4 +27,4 @@ totals[string[-1]] += 1
 
 count = [i//2 for i in totals.values()]
         
-print(max(count) - min(count))        
+print(max(count) - min(count))
