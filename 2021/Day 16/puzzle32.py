@@ -61,7 +61,5 @@ def parse_packet(data):
         return (data, 1 if sub[0] < sub[1] else 0)
     if tid == 7:
         return (data, 1 if sub[0] == sub[1] else 0)
-    
-    return data
 
 print(parse_packet(b)[1])
