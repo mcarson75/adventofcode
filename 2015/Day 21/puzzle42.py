@@ -63,7 +63,7 @@ def player_wins(damage, armor):
         p -= max(1, 9 - armor)
         if p <= 0: return False
 
-max_cost = 0
+highest_cost = 0
 
 #winning_combo = {"weapon" : None, "armor" : None, "ring" : None}
 for w in weapons:
@@ -72,10 +72,10 @@ for w in weapons:
             cost = w["cost"] + a["cost"] + r1["cost"] + r2["cost"]
             dam = w["damage"] + a["damage"] + r1["damage"] + r2["damage"]
             arm = w["armor"] + a["armor"] + r1["armor"] + r2["armor"]
-            if not player_wins(dam, arm) and cost > max_cost:
-                max_cost = cost
+            if not player_wins(dam, arm) and cost > highest_cost:
+                highest_cost = cost
                 winning_combo = {"weapon" : w["name"], "armor" : a["name"], "ring1" : r1["name"], "ring2" : r2["name"]}
     
 
 print(winning_combo)
-print(max_cost)
+print(highest_cost)
