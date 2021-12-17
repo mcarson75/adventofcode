@@ -1,24 +1,16 @@
 # target area: x=32..65, y=-225..-177
 
-def launch(vx, vy):
-    min_x, max_x, min_y, max_y = [32, 65, -225, -177]
-    x, y = [0, 0]
-    m = 0
-    while x <= max_x and y >= min_y:
-        x += vx
-        y += vy
-        vx = max(0, vx -1)
-        vy -= 1
-        m = max(m, y)
-        if min_x <= x <= max_x and min_y <= y <= max_y:
-            return True, m
-    return False, 0
+from math import floor, ceil
+
+target = [32, 65, -225, -177]
+n = abs(target[2])
+
+highest = int(n * (n-1) /2)
+
+def check_x(x):
+    return (1 + (1 + 8*x)**0.5) / 2
     
-highest = 0
-for vx in range(8, 66):
-    for vy in range(-230, 300):
-        target, height = launch(vx, vy)
-        if target:
-            highest = max(highest, height)
-        
-print(highest)
+if floor(check_x(target[1])) >= ceil(check_x(target[0])):
+    print(highest)
+else:
+    print("Not possible")
