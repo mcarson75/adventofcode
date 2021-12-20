@@ -2,12 +2,8 @@ import numpy as np
 
 def decode(input, code, default = '.'):
     input = np.concatenate((np.full((len(input),1), default), input, np.full((len(input),1), default)),1)
-    # input = np.concatenate((np.full((len(input),1), default), input, np.full((len(input),1), default)),1)
-    # input = np.concatenate((np.full((len(input),1), default), input, np.full((len(input),1), default)),1)
 
     input = np.concatenate((np.full((1,len(input[0])), default), input, np.full((1, len(input[0])), default)),0)
-    # input = np.concatenate((np.full((1,len(input[0])), default), input, np.full((1, len(input[0])), default)),0)
-    # input = np.concatenate((np.full((1,len(input[0])), default), input, np.full((1, len(input[0])), default)),0)
 
     out = np.full_like(input, '.')
 
@@ -37,9 +33,6 @@ for n in range(reps):
     else:
         default = '.'
     input = decode(input, code, default)
-    
-# out1 = decode(input, code)
-# output = decode(out1, code, '#')
     
 num = np.count_nonzero(input=='#')
 print(num)

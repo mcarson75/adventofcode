@@ -34,8 +34,5 @@ for n in range(reps):
         default = '.'
     input = decode(input, code, default)
     
-# out1 = decode(input, code)
-# output = decode(out1, code, '#')
-    
 num = np.count_nonzero(input=='#')
 print(num)
