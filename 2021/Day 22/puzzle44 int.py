@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 with open("input.txt", 'r', encoding='utf-8') as f:
     lines = [l.strip() for l in f.readlines()]
 
@@ -11,10 +9,7 @@ class cube:
         self.y2 = y2
         self.z1 = z1
         self.z2 = z2
-        if isinstance(state, int):
-            self.state = state
-        else:
-            self.state = int(state == 'on')
+        self.state = state
         
     @property
     def volume(self):
@@ -26,13 +21,11 @@ def overlap(this, that):
 cubes = []
 for l in lines:
     state, rem = l.split(" ")
-    xa, ya, za = rem.split(",")
-    _, x = xa.split("=")
-    x1, x2 = map(int, x.split('..'))
-    _, y = ya.split("=")
-    y1, y2 = map(int, y.split('..'))
-    _, z = za.split("=")
-    z1, z2 = map(int, z.split('..'))
+    state = 1 if state =='on' else 0
+    x, y, z = rem.split(",")
+    x1, x2 = map(int, x[2:].split('..'))
+    y1, y2 = map(int, y[2:].split('..'))
+    z1, z2 = map(int, z[2:].split('..'))
     
     x2, y2, z2 = x2 + 1, y2 + 1, z2 + 1
     
