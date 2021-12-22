@@ -9,8 +9,6 @@ class player:
         
     def roll(self, spaces):
         self.space = (self.space + spaces - 1) % 10 + 1
-        # mod = self.space % 10
-        # self.spaces = 10 if mod == 0 else mod
         self.score += self.space
         self.rolls += 3
         
