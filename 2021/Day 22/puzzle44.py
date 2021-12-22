@@ -11,11 +11,14 @@ class cube:
         self.y2 = y2
         self.z1 = z1
         self.z2 = z2
-        self.state = state
+        if isinstance(state, int):
+            self.state = state
+        else:
+            self.state = int(state == 'on')
         
     @property
     def volume(self):
-        return abs(self.x2 - self.x1) * abs(self.y2 - self.y1) * abs(self.z2 - self.z1)
+        return self.state * abs(self.x2 - self.x1) * abs(self.y2 - self.y1) * abs(self.z2 - self.z1)
 
 def overlap(this, that):
     return this.x2 > that.x1 and this.x1 < that.x2 and this.y2 > that.y1 and this.y1 < that.y2 and this.z2 > that.z1 and this.z1 < that.z2
@@ -74,6 +77,6 @@ for l in lines:
 
     cubes = new_cubes
             
-total = sum([c.volume for c in cubes if c.state == 'on'])
+total = sum([c.volume for c in cubes])
 
 print(total)
