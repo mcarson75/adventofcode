@@ -26,8 +26,6 @@ while True:
     for r in set_right:
         x, y = r[0], r[1]
         next_x = x + 1 if x < max_x else 0
-        # if x == max_x: 
-        #     print("stop")
         if ((next_x, y)) not in set_right and ((next_x, y)) not in set_down:
             movement = True
             new_right.add((next_x, y))
