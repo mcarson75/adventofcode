@@ -17,10 +17,6 @@ steps = 0
 while pos < len(c):
     next_pos = pos + c[pos]
     c[pos] += 1 if c[pos] < 3 else -1
-    # if c[pos] >= 3:
-    #     c[pos] -= 1
-    # else:
-    #     c[pos] += 1
     pos = next_pos
     steps += 1
 
