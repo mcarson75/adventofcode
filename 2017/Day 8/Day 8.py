@@ -9,15 +9,13 @@ part2 = 0
 for l in lines:
     g = re.match(pattern, l)
     reg, dir, change, src, arg, value = g.groups()
-    change = int(change)
+    dir = '+=' if dir == 'inc' else '-='
+
     if reg not in regs: regs[reg] = 0
     if src not in regs: regs[src] = 0
     
     if eval('regs[src]' + arg + value):
-        if dir == 'inc':
-            regs[reg] += change
-        elif dir == 'dec':
-            regs[reg] -= change
+        exec('regs[reg]' + dir + change)
             
     part2 = max(part2, regs[reg])
     
