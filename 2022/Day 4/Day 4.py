@@ -12,8 +12,8 @@ for line in lines:
     r1 = set(range(x1, x2 + 1))
     r2 = set(range(y1, y2 + 1))
 
-    part1 += int(r2.issubset(r1) or r1.issubset(r2))
-    part2 += int(len(r2.intersection(r1)) > 0 or len(r1.intersection(r2)) > 0)
+    part1 += r2.issubset(r1) or r1.issubset(r2)
+    part2 += len(r2.intersection(r1)) > 0 or len(r1.intersection(r2)) > 0
 
 
 print(f"Part 1: {part1}")
