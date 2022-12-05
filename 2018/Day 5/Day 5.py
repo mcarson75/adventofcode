@@ -1,13 +1,7 @@
-def check_polarity(s1, s2):
-    if abs(ord(s1) - ord(s2)) == 32:
-        return True
-    return False
-
-
 def reduce(poly):
     buf = []
     for p in poly:
-        if buf and check_polarity(p, buf[-1]):
+        if buf and buf[-1] == p.swapcase():
             buf.pop()
         else:
             buf.append(p)
