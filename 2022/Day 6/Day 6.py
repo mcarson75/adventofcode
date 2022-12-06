@@ -8,8 +8,5 @@ def find_unique(input, l):
             return n
 
 
-part1 = find_unique(input, 4)
-part2 = find_unique(input, 14)
-
-print(f"Part 1: {part1}")
-print(f"Part 2: {part2}")
+print(f"Part 1: {find_unique(input, 4)}")
+print(f"Part 2: {find_unique(input, 14)}")
