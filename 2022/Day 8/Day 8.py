@@ -8,9 +8,9 @@ lines = np.array(lines)
 
 def find_scenic(ht, array):
     bool_array = [n < ht for n in array]
-    return all(bool_array) if len(bool_array) > 0 else True, bool_array.index(
-        False
-    ) + 1 if False in bool_array else len(bool_array)
+    return all(bool_array), bool_array.index(False) + 1 if False in bool_array else len(
+        bool_array
+    )
 
 
 part1 = 0
