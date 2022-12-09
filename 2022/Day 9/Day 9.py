@@ -4,18 +4,9 @@ with open("input.txt", "r", encoding="utf-8") as f:
     lines = [l.strip() for l in f.readlines()]
 
 
-def sign(n):
-    if n < 0:
-        return -1
-    elif n > 0:
-        return 1
-    else:
-        return 0
-
-
 def ropeMove(lines, numKnots):
     visited = set()
-    k = np.array([[0, 0] for i in range(numKnots)])
+    k = np.array([[0, 0] for _ in range(numKnots)])
     visited = {tuple(k[-1])}
 
     for line in lines:
@@ -34,8 +25,8 @@ def ropeMove(lines, numKnots):
             for n in range(1, len(k)):
                 dx, dy = k[n - 1, 0] - k[n, 0], k[n - 1, 1] - k[n, 1]
                 if abs(dx) > 1 or abs(dy) > 1:
-                    k[n, 0] += sign(dx)
-                    k[n, 1] += sign(dy)
+                    k[n, 0] += np.sign(dx)
+                    k[n, 1] += np.sign(dy)
             visited.add(tuple(k[-1]))
     return len(visited)
 
