@@ -10,18 +10,14 @@ for line in lines:
         deltas.append(int(line.split()[1]))
 
 X = [sum(deltas[:n]) for n in range(0, len(deltas))]
-
-cycles = [20, 60, 100, 140, 180, 220]
-part1 = sum([c * X[c] for c in cycles])
+part1 = sum([c * X[c] for c in range(20, len(X) + 1, 40)])
 
 print(f"Part 1: {part1}")
 
 BLOCK = "\u2588"
-
 pixels = "".join(
     [BLOCK if x - 1 <= (i % 40) <= x + 1 else " " for i, x in enumerate(X[1:])]
 )
 
-ends = list(range(40, 241, 40))
-for e in ends:
+for e in range(40, len(X) + 1, 40):
     print(pixels[e - 40 : e])
