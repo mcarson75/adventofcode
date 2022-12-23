@@ -7,14 +7,12 @@ grid = np.array(
 elves = set(x + y * 1j for (y, x) in np.argwhere(grid == "#"))
 moves = [-1j, 1j, -1, 1]
 
-
-def adj_direction(p, d):
-    for j in [-1j, 0, 1j] if not d.imag else [-1, 0, 1]:
-        yield p + d + j
-
-
 adjacent = lambda p: set(
     [p - 1j, p + 1 - 1j, p + 1, p + 1 + 1j, p + 1j, p - 1 + 1j, p - 1, p - 1 - 1j]
+)
+
+adj_direction = lambda p, d: set(
+    [p + d + (j * 1j) if not d.imag else p + d + j for j in [-1, 0, 1]]
 )
 
 
