@@ -7,12 +7,8 @@ lines = lines[:-2]
 map = set()
 wall = set()
 
-instr_num = [int(i) for i in re.findall(r"\d+", instructions)]
-instr_turn = re.findall(r"[LR]", instructions)
-
-instructions = [val for pair in zip(instr_num, instr_turn) for val in pair]
-if len(instr_num) > len(instr_turn):
-    instructions.append(instr_num[-1])
+instructions = re.findall("\d+|L|R", instructions)
+instructions = [int(i) if i.isdigit() else i for i in instructions]
 
 for row in range(1, len(lines) + 1):
     line = lines[row - 1]
