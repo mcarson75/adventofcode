@@ -35,23 +35,92 @@ def do_moves(maptype="flat"):
     dir = {"r": (1, 0), "l": (-1, 0), "u": (0, -1), "d": (0, 1)}
     dirs = ["r", "d", "l", "u"]
 
-    edge1a = tuple((51, 50 + i) for i in range(1, 51))  # vertical, x=51, y= 51-100
-    edge1b = tuple((i, 101) for i in range(1, 51))  # horizontal,   x = 51-100, y=101
-
-    edge2a = tuple((50, 150 + i) for i in range(1, 51))  # vertical
-    edge2b = tuple((i + 50, 150) for i in range(1, 51))  # horizontal
-
-    edge3a = tuple((100, 50 + i) for i in range(1, 51))  # vertical
-    edge3b = tuple((i + 100, 50) for i in range(1, 51))  # horizontal
-
-    edge4a = tuple((51, i) for i in range(1, 51))  # vertical
-    edge4b = tuple((1, i + 100) for i in range(50, 0, -1))  # vertical
-
-    edge5a = tuple((1, 150 + i) for i in range(1, 51))  # vertical
-    edge5b = tuple((i + 50, 1) for i in range(1, 51))  # horizontal
-
-    edge6a = tuple((100, 100 + i) for i in range(1, 51))  # vertical
-    edge6b = tuple((150, i) for i in range(50, 0, -1))  # vertical
+    edges = [
+        {
+            "a": {
+                "range": tuple((51, 50 + i) for i in range(1, 51)),
+                "from": "l",
+                "to": "d",
+            },
+            "b": {
+                "range": tuple((i, 101) for i in range(1, 51)),
+                "from": "u",
+                "to": "r",
+            },
+        },
+        {
+            "a": {
+                "range": tuple((50, 150 + i) for i in range(1, 51)),
+                "from": "r",
+                "to": "u",
+            },
+            "b": {
+                "range": tuple((i + 50, 150) for i in range(1, 51)),
+                "from": "d",
+                "to": "l",
+            },
+        },
+        {
+            "a": {
+                "range": tuple((100, 50 + i) for i in range(1, 51)),
+                "from": "r",
+                "to": "u",
+            },
+            "b": {
+                "range": tuple((i + 100, 50) for i in range(1, 51)),
+                "from": "d",
+                "to": "l",
+            },
+        },
+        {
+            "a": {
+                "range": tuple((51, i) for i in range(1, 51)),
+                "from": "l",
+                "to": "r",
+            },
+            "b": {
+                "range": tuple((1, i + 100) for i in range(50, 0, -1)),
+                "from": "l",
+                "to": "r",
+            },
+        },
+        {
+            "a": {
+                "range": tuple((1, 150 + i) for i in range(1, 51)),
+                "from": "l",
+                "to": "d",
+            },
+            "b": {
+                "range": tuple((i + 50, 1) for i in range(1, 51)),
+                "from": "u",
+                "to": "r",
+            },
+        },
+        {
+            "a": {
+                "range": tuple((100, 100 + i) for i in range(1, 51)),
+                "from": "r",
+                "to": "l",
+            },
+            "b": {
+                "range": tuple((150, i) for i in range(50, 0, -1)),
+                "from": "r",
+                "to": "l",
+            },
+        },
+        {
+            "a": {
+                "range": tuple((i, 200) for i in range(1, 51)),
+                "from": "d",
+                "to": "d",
+            },
+            "b": {
+                "range": tuple((i + 100, 1) for i in range(1, 51)),
+                "from": "u",
+                "to": "u",
+            },
+        },
+    ]
 
     edge7a = tuple((i, 200) for i in range(1, 51))  # horizontal
     edge7b = tuple((i + 100, 1) for i in range(1, 51))  # horizontal
@@ -71,68 +140,14 @@ def do_moves(maptype="flat"):
                     elif face == "d":
                         next_pos = (pos[0], min(this_col(map, pos[0])))
                 elif next_pos not in map and maptype == "cube":
-                    if pos in edge1a and face == "l":
-                        i = edge1a.index(pos)
-                        next_pos = edge1b[i]
-                        next_face = "d"
-                    elif pos in edge1b and face == "u":
-                        i = edge1b.index(pos)
-                        next_pos = edge1a[i]
-                        next_face = "r"
-
-                    elif pos in edge2a and face == "r":
-                        i = edge2a.index(pos)
-                        next_pos = edge2b[i]
-                        next_face = "u"
-                    elif pos in edge2b and face == "d":
-                        i = edge2b.index(pos)
-                        next_pos = edge2a[i]
-                        next_face = "l"
-
-                    elif pos in edge3a and face == "r":
-                        i = edge3a.index(pos)
-                        next_pos = edge3b[i]
-                        next_face = "u"
-                    elif pos in edge3b and face == "d":
-                        i = edge3b.index(pos)
-                        next_pos = edge3a[i]
-                        next_face = "l"
-
-                    elif pos in edge4a and face == "l":
-                        i = edge4a.index(pos)
-                        next_pos = edge4b[i]
-                        next_face = "r"
-                    elif pos in edge4b and face == "l":
-                        i = edge4b.index(pos)
-                        next_pos = edge4a[i]
-                        next_face = "r"
-
-                    elif pos in edge5a and face == "l":
-                        i = edge5a.index(pos)
-                        next_pos = edge5b[i]
-                        next_face = "d"
-                    elif pos in edge5b and face == "u":
-                        i = edge5b.index(pos)
-                        next_pos = edge5a[i]
-                        next_face = "r"
-
-                    elif pos in edge6a and face == "r":
-                        i = edge6a.index(pos)
-                        next_pos = edge6b[i]
-                        next_face = "l"
-                    elif pos in edge6b and face == "r":
-                        i = edge6b.index(pos)
-                        next_pos = edge6a[i]
-                        next_face = "l"
-
-                    elif pos in edge7a and face == "d":
-                        i = edge7a.index(pos)
-                        next_pos = edge7b[i]
-                        next_face = "d"
-                    elif pos in edge7b and face == "u":
-                        i = edge7b.index(pos)
-                        next_pos = edge7a[i]
-                        next_face = "u"
+                    for edge in edges:
+                        for r in edge:
+                            this = edge[r]
+                            that = edge["a" if r == "b" else "b"]
+                            if pos in this["range"] and face == this["from"]:
+                                i = this["range"].index(pos)
+                                next_face = this["to"]
+                                next_pos = that["range"][i]
 
                 if next_pos in wall:
                     break
