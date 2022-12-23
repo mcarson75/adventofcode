@@ -9,10 +9,8 @@ moves = [-1j, 1j, -1, 1]
 
 
 def adj_direction(p, d):
-    if d.imag == 0:
-        return set(p + d + j for j in [-1j, 0, 1j])
-    else:
-        return set(p + d + j for j in [-1, 0, 1])
+    for j in [-1j, 0, 1j] if not d.imag else [-1, 0, 1]:
+        yield p + d + j
 
 
 adjacent = lambda p: set(
@@ -24,10 +22,10 @@ def do_move(turn):
     global elves
     new_elves = {}
     for elf in elves:
-        if any(e in elves for e in adjacent(elf)):
+        if elves.intersection(adjacent(elf)):
             for m in range(len(moves)):
                 move = moves[(m + turn) % 4]
-                if not any(e in elves for e in adj_direction(elf, move)):
+                if not elves.intersection(adj_direction(elf, move)):
                     new_elf = elf + move
                     if new_elf in new_elves:
                         new_elves.pop(new_elf)
@@ -48,19 +46,16 @@ def do_move(turn):
 
 
 turn, finished = 0, False
-while turn < 10:
-    finished = do_move(turn)
-    turn += 1
-
-total_area = (max(e.real for e in elves) - min(e.real for e in elves) + 1) * (
-    max(e.imag for e in elves) - min(e.imag for e in elves) + 1
-)
-
-part1 = int(total_area) - len(elves)
-
 while not finished:
     finished = do_move(turn)
     turn += 1
+
+    if turn == 10:
+        total_area = (max(e.real for e in elves) - min(e.real for e in elves) + 1) * (
+            max(e.imag for e in elves) - min(e.imag for e in elves) + 1
+        )
+
+        part1 = int(total_area) - len(elves)
 
 print(f"Part 1: {part1}")
 print(f"Part 2: {turn}")
