@@ -1,4 +1,5 @@
 import numpy as np
+from time import time
 
 grid = np.array(
     [list(l.rstrip()) for l in open("input.txt", "r", encoding="utf-8").readlines()]
@@ -20,18 +21,17 @@ def do_move(turn):
     global elves
     new_elves = {}
     for elf in elves:
-        if elves.intersection(adjacent(elf)):
-            for m in range(len(moves)):
-                move = moves[(m + turn) % 4]
-                if not elves.intersection(adj_direction(elf, move)):
+        if elves & adjacent(elf):
+            for move in moves[turn % 4 :] + moves[: turn % 4]:
+                if not elves & adj_direction(elf, move):
                     new_elf = elf + move
                     if new_elf in new_elves:
-                        new_elves.pop(new_elf)
+                        del new_elves[new_elf]
                     else:
                         new_elves[new_elf] = elf
                     break
 
-    if len(new_elves.keys()) == 0:
+    if not new_elves:
         return True
 
     if turn % 25 == 0:
@@ -43,6 +43,7 @@ def do_move(turn):
     return False
 
 
+start = time()
 turn, finished = 0, False
 while not finished:
     finished = do_move(turn)
@@ -57,3 +58,4 @@ while not finished:
 
 print(f"Part 1: {part1}")
 print(f"Part 2: {turn}")
+print(f"    Time: {time()-start} s")
