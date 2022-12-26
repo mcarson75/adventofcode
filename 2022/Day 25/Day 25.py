@@ -2,9 +2,9 @@ lines = [l.rstrip() for l in open("input.txt", "r", encoding="utf-8").readlines(
 
 
 def snafu_to_dec(s):
-    map = {"=": -2, "-": -1}
+    map = {"=": -2, "-": -1, "0": 0, "1": 1, "2": 2}
 
-    s = [map[i] if i in map.keys() else int(i) for i in s[::-1]]
+    s = [map[i] for i in s[::-1]]
     return int(sum([5**i * s[i] for i in range(len(s))]))
 
 
