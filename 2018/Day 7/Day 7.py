@@ -1,24 +1,24 @@
+from collections import defaultdict
+
 with open("input.txt", "r", encoding="utf-8") as f:
-    lines = [l.strip() for l in f.readlines()]
+    lines = [l.split() for l in f.readlines()]
 
-input = [[l.split()[1], l.split()[7]] for l in lines]
-
-tree = {}
-
-
-def reduce_tree(tree):
-    new_tree = {}
-    c = set([i for s in tree.values() for i in s])
-    p = set([i for s in tree.keys() for i in s])
-    for k in p.difference(c):
-        new_tree[k] = []
-        for i in tree[k]:
-            new_tree[k].append({i: tree[i]})
+lines = [(l[1], l[7]) for l in lines]
+steps = set([s[0] for s in lines] + [s[1] for s in lines])
 
 
-for p, c in input:
-    tree[p] = tree.get(p, []) + [c]
+def next(s, l):
+    return [s for s in steps if all(b != s for (_, b) in l)]
 
-reduce_tree(tree)
 
-print("stop")
+order = ""
+while steps:
+    c = next(steps, lines)
+    c.sort()
+
+    n = c[0]
+    order += n
+    steps.remove(n)
+    lines = [(a, b) for (a, b) in lines if a != n]
+
+print(f"Part 1: {order}")
