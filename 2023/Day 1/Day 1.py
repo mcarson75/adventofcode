@@ -29,4 +29,4 @@ part1 = sum(values1)
 print(f"Part 1: {part1}")
 
 part2 = sum(values2)
-print(f"Part 1: {part2}")
+print(f"Part 2: {part2}")
