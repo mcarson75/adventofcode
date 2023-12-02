@@ -19,13 +19,9 @@ for line in lines:
 
             powers[color] = max(num, powers[color])
 
-    part2 += powers["red"] * powers["green"] * powers["blue"]
-    if (
-        powers["red"] <= limits["red"]
-        and powers["green"] <= limits["green"]
-        and powers["blue"] <= limits["blue"]
-    ):
+    if all([powers[color] <= limits[color] for color in limits.keys()]):
         part1 += id
+    part2 += powers["red"] * powers["green"] * powers["blue"]
 
 print(f"Part 1: {part1}")
 print(f"Part 2: {part2}")
