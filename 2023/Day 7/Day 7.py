@@ -46,12 +46,12 @@ def Hand(a, b):
 
 
 hands.sort(key=cmp_to_key(Hand))
-part1 = [(i + 1) * int(v[1]) for i, v in enumerate(hands)]
+part1 = sum([(i + 1) * int(v[1]) for i, v in enumerate(hands)])
 
 jokers_wild = True
 hands.sort(key=cmp_to_key(Hand))
-part2 = [(i + 1) * int(v[1]) for i, v in enumerate(hands)]
+part2 = sum([(i + 1) * int(v[1]) for i, v in enumerate(hands)])
 
 
-print(f"Part 1: {sum(part1)}")
-print(f"Part 2: {sum(part2)}")
+print(f"Part 1: {part1}")
+print(f"Part 2: {part2}")
