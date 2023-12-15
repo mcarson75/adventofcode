@@ -1,9 +1,6 @@
-from collections import namedtuple
-
 strings = [l.strip().split(",") for l in open("input.txt", "r")][0]
 
 boxes = {k: [] for k in range(256)}
-Lens = namedtuple("Lens", "label power")
 
 
 def hash(string):
@@ -16,7 +13,7 @@ def hash(string):
 
 
 def get_lens(label, lenses):
-    labels = [l.label for l in lenses]
+    labels = [l[0] for l in lenses]
     if label in labels:
         return labels.index(label)
     return -1
@@ -38,13 +35,13 @@ for string in strings:
     if not power and index >= 0:
         del boxes[box][index]
     elif index >= 0:
-        boxes[box][index] = Lens(label, power)
+        boxes[box][index] = (label, power)
     elif power:
-        boxes[box].append(Lens(label, power))
+        boxes[box].append((label, power))
 
 part2 = sum(
     [
-        sum([(box + 1) * (i + 1) * boxes[box][i].power for i in range(len(boxes[box]))])
+        sum([(box + 1) * (i + 1) * boxes[box][i][1] for i in range(len(boxes[box]))])
         for box in boxes
     ]
 )
