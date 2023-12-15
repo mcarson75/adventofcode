@@ -1,5 +1,8 @@
-strings = [l.strip().split(",") for l in open("input.txt", "r")][0]
+import re
 
+pattern = r"([a-z]+)(?:-|=)(\d+)?"
+input = open("input.txt").read().strip()
+strings = re.findall(pattern, input)
 boxes = {k: [] for k in range(256)}
 
 
@@ -19,16 +22,13 @@ def get_lens(label, lenses):
     return -1
 
 
-part1 = sum([hash(string) for string in strings])
+def get_focus(box):
+    power = sum([(i + 1) * p[1] for (i, p) in enumerate(boxes[box])])
+    return (box + 1) * power
 
-print(f"Part 1: {part1}")
 
-for string in strings:
-    if "-" in string:
-        label, _ = string.split("-")
-        power = None
-    else:
-        label, power = string.split("=")
+for label, power in strings:
+    if power:
         power = int(power)
     box = hash(label)
     index = get_lens(label, boxes[box])
@@ -39,12 +39,8 @@ for string in strings:
     elif power:
         boxes[box].append((label, power))
 
-part2 = sum(
-    [
-        sum([(box + 1) * (i + 1) * boxes[box][i][1] for i in range(len(boxes[box]))])
-        for box in boxes
-    ]
-)
+part1 = sum([hash(string) for string in input.split(",")])
+part2 = sum([get_focus(box) for box in boxes])
 
-
+print(f"Part 1: {part1}")
 print(f"Part 2: {part2}")
