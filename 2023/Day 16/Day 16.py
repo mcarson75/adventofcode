@@ -10,20 +10,18 @@ MAX_HEIGHT = len(grid)
 MAX_WIDTH = len(grid[0])
 
 
-def beam(loc, dir, seen):
-    energized = set()
+def beam(loc, dir, energized):
+    # energized = set()
     while 0 <= loc.real <= MAX_WIDTH - 1 and 0 <= loc.imag <= MAX_HEIGHT - 1:
-        if (loc, dir) in seen:
+        if (loc, dir) in energized:
             return energized
-        else:
-            seen.add((loc, dir))
-        energized.add(loc)
+        energized.add((loc, dir))
         if loc in mirrors:
             if mirrors[loc] == "-" and dir in [-1j, 1j]:
-                energized |= beam(loc - 1, -1, seen)
+                energized |= beam(loc - 1, -1, energized)
                 dir = 1
             elif mirrors[loc] == "|" and dir in [-1, 1]:
-                energized |= beam(loc - 1j, -1j, seen)
+                energized |= beam(loc - 1j, -1j, energized)
                 dir = 1j
             elif mirrors[loc] == "\\":
                 dir = dir.imag + dir.real * 1j
@@ -33,14 +31,17 @@ def beam(loc, dir, seen):
     return energized
 
 
-part1 = len(beam(0, 1, set()))
-print(f"Part 1: {part1}")
+def energized(loc, dir):
+    return len(set([e[0] for e in beam(loc, dir, set())]))
+
+
+print(f"Part 1: {energized(0,1)}")
 
 part2 = 0
 for loc in range(MAX_WIDTH):
-    part2 = max(part2, len(beam(loc, 1j, set())))
-    part2 = max(part2, len(beam(loc * 1j, 1, set())))
-    part2 = max(part2, len(beam(loc + (MAX_HEIGHT - 1) * 1j, -1j, set())))
-    part2 = max(part2, len(beam(MAX_WIDTH - 1 + loc * 1j, -1, set())))
+    part2 = max(part2, energized(loc, 1j))
+    part2 = max(part2, energized(loc * 1j, 1))
+    part2 = max(part2, energized(loc + (MAX_HEIGHT - 1) * 1j, -1j))
+    part2 = max(part2, energized(MAX_WIDTH - 1 + loc * 1j, -1))
 
 print(f"Part 2: {part2}")
