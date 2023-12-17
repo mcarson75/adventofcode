@@ -11,7 +11,6 @@ MAX_WIDTH = len(grid[0])
 
 
 def beam(loc, dir, energized):
-    # energized = set()
     while 0 <= loc.real <= MAX_WIDTH - 1 and 0 <= loc.imag <= MAX_HEIGHT - 1:
         if (loc, dir) in energized:
             return energized
@@ -37,11 +36,11 @@ def energized(loc, dir):
 
 print(f"Part 1: {energized(0,1)}")
 
-part2 = 0
-for loc in range(MAX_WIDTH):
-    part2 = max(part2, energized(loc, 1j))
-    part2 = max(part2, energized(loc * 1j, 1))
-    part2 = max(part2, energized(loc + (MAX_HEIGHT - 1) * 1j, -1j))
-    part2 = max(part2, energized(MAX_WIDTH - 1 + loc * 1j, -1))
+start = set((l, 1j) for l in range(MAX_HEIGHT))
+start |= set((l * 1j, 1) for l in range(MAX_WIDTH))
+start |= set((l + (MAX_HEIGHT - 1) * 1j, -1j) for l in range(MAX_HEIGHT))
+start |= set((MAX_WIDTH - 1 + l * 1j, -1) for l in range(MAX_WIDTH))
+
+part2 = max([energized(s[0], s[1]) for s in start])
 
 print(f"Part 2: {part2}")
