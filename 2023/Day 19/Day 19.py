@@ -24,13 +24,12 @@ def find_rules(current, conditions):
         rules.append(conditions)
     elif current != "R":
         for rule in workflows[current][:-1]:
-            if rule not in "AR":
-                condition, next_workflow = rule.split(":")
-                find_rules(next_workflow, conditions + [condition])
-                if condition[1] == "<":
-                    conditions.append(condition.replace("<", ">="))
-                elif condition[1] == ">":
-                    conditions.append(condition.replace(">", "<="))
+            condition, next_workflow = rule.split(":")
+            find_rules(next_workflow, conditions + [condition])
+            if condition[1] == "<":
+                conditions.append(condition.replace("<", ">="))
+            elif condition[1] == ">":
+                conditions.append(condition.replace(">", "<="))
         else:
             next_workflow = workflows[current][-1]
             find_rules(next_workflow, conditions)
