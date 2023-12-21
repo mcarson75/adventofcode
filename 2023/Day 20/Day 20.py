@@ -78,7 +78,5 @@ while True:
         on_state = [m for m in modules[target_src].inputs if modules[m].state]
         triggers.update({o: button for o in on_state})
 
-part2 = lcm(*triggers.values())
-
 print(f"Part 1: {lo*hi}")
-print(f"Part 2: {part2}")
+print(f"Part 2: {lcm(*triggers.values())}")
