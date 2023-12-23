@@ -9,7 +9,7 @@ def cost(matrix, lo, hi):
     # q format (cost, (x, y), (dx, dy))
     q = [(0, (0, 0), (0, 1)), (0, (0, 0), (1, 0))]
     costs = defaultdict(lambda: inf)
-    target = (len(grid) - 1, len(grid[0]) - 1)
+    target = (len(matrix) - 1, len(matrix[0]) - 1)
     while q:
         cost, (x, y), (dx, dy) = heappop(q)
         if (x, y) == target:
@@ -21,7 +21,7 @@ def cost(matrix, lo, hi):
             for dist in range(1, hi + 1):
                 nx, ny = x + ndx * dist, y + ndy * dist
                 if 0 <= nx <= target[0] and 0 <= ny <= target[1]:
-                    nc += int(grid[nx][ny])
+                    nc += int(matrix[nx][ny])
                     if dist < lo:
                         continue
                     k = ((nx, ny), (ndx, ndy))
