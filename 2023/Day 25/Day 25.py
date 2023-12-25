@@ -4,11 +4,9 @@ lines = [
     l.strip().split(": ") for l in open("input.txt", "r", encoding="utf-8").readlines()
 ]
 
-connections = {src: tgt.split(" ") for (src, tgt) in lines}
-
 G = networkx.Graph()
-for src, tgts in connections.items():
-    for tgt in tgts:
+for src, tgts in lines:
+    for tgt in tgts.split(" "):
         G.add_edge(src, tgt)
 
 cuts = networkx.minimum_edge_cut(G)
