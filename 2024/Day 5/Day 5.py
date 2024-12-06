@@ -13,7 +13,7 @@ rules, p = [
     i.split("\n") for i in open("input.txt", "r", encoding="utf-8").read().split("\n\n")
 ]
 
-books = [[int(j) for j in i.split(",")] for i in p if i != ""]
+books = [[int(j) for j in i.split(",")] for i in p if i]
 
 orders = defaultdict(set)
 for rule in rules:
