@@ -35,8 +35,7 @@ b = lambda L, y: min(
 bx = b(W, False)
 by = b(H, True)
 
-part2 = bx + ((pow(W, -1, H) * (by - bx)) % H) * W
-
+part2 = int(bx + (bx - by + H) / (H - W) * W)
 
 print(f"Part 1: {part1}")
 print(f"Part 2: {part2}")
