@@ -11,17 +11,18 @@ directions = [1, -1, 1j, -1j, 1 - 1j, 1 + 1j, -1 - 1j, -1 + 1j]
 search = "XMAS"
 
 for letter in letters:
-    for dir in directions:
-        found = True
-        for i in range(len(search)):
-            if (
-                not letter + i * dir in letters
-                or not letters[letter + i * dir] == search[i]
-            ):
-                found = False
-                break
-        if found:
-            part1 += 1
+    if letters[letter] == "X":
+        for dir in directions:
+            found = True
+            for i in range(1, len(search)):
+                if (
+                    not letter + i * dir in letters
+                    or not letters[letter + i * dir] == search[i]
+                ):
+                    found = False
+                    break
+            if found:
+                part1 += 1
 
 part2 = 0
 directions = [1 - 1j, 1 + 1j, -1 + 1j, -1 - 1j]
@@ -35,8 +36,6 @@ for letter in letters:
                 check.append(letters[letter + dir])
             else:
                 break
-        # if len(check) == 4:
-        #     print("stop")
         if "".join(check) in checks:
             part2 += 1
 
