@@ -1,5 +1,4 @@
 from math import inf
-from heapq import heappop, heappush
 
 GRID_MAX = 70
 SIM_TIME = 1024
@@ -18,23 +17,17 @@ dirs = [1, -1, 1j, -1j]
 
 
 def get_path(start, end):
-    q = [(0, 0, start)]
+    q = [(0, start)]
     costs = {start: 0}
-    counter = 0
     while q:
-        cost, _, pos = heappop(q)
+        cost, pos = q.pop(0)
         if pos == end:
             return cost
-        for p in [pos + d for d in dirs]:
-            if (
-                p not in obstacles
-                and inbounds(p)
-                and (new_cost := cost + 1) < costs.get(p, inf)
-            ):
-                counter += 1
+        for p in {pos + d for d in dirs if inbounds(pos + d)} - obstacles:
+            if (new_cost := cost + 1) < costs.get(p, inf):
                 costs[p] = new_cost
                 if not (new_cost, p) in q:
-                    heappush(q, (new_cost, counter, p))
+                    q.append((new_cost, p))
 
 
 current = step = SIM_TIME
