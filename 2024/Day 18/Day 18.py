@@ -3,8 +3,6 @@ from heapq import heappop, heappush
 
 GRID_MAX = 70
 SIM_TIME = 1024
-# GRID_MAX = 6
-# SIM_TIME = 12
 
 bytes = [
     [int(i) for i in l.rstrip().split(",")]
@@ -12,7 +10,6 @@ bytes = [
 ]
 
 obstacles = {complex(x, y) for (x, y) in bytes[:SIM_TIME]}
-
 inbounds = lambda x: 0 <= x.real <= GRID_MAX and 0 <= x.imag <= GRID_MAX
 
 start = 0
@@ -40,13 +37,12 @@ def get_path(start, end):
                     heappush(q, (new_cost, counter, p))
 
 
-part1 = get_path(start, end)
-
-step = 1024
-current = SIM_TIME
+current = step = SIM_TIME
 while step > 1:
     obstacles = {complex(x, y) for (x, y) in bytes[:current]}
-    if get_path(start, end):
+    if p := get_path(start, end):
+        if current == SIM_TIME:
+            part1 = p
         current += step
     else:
         step >>= 1
