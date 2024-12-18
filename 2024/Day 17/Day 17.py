@@ -55,8 +55,6 @@ def do_op(commands, reg, a=None):
 output = do_op(commands, registers.copy())
 part1 = ",".join([str(i) for i in output])
 
-print(f"Part 1: {part1}")
-
 poss = [0]
 for i in range(len(commands)):
     match = commands[-(i + 1) :]
@@ -69,4 +67,6 @@ for i in range(len(commands)):
     poss = new_poss
 
 part2 = min(poss)
+
+print(f"Part 1: {part1}")
 print(f"Part 2: {part2}")
