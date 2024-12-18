@@ -42,12 +42,17 @@ def get_path(start, end):
 
 part1 = get_path(start, end)
 
-next_byte = SIM_TIME
-while get_path(start, end):
-    obstacles.add(complex(bytes[next_byte][0], bytes[next_byte][1]))
-    next_byte += 1
+step = 1024
+current = SIM_TIME
+while step > 1:
+    obstacles = {complex(x, y) for (x, y) in bytes[:current]}
+    if get_path(start, end):
+        current += step
+    else:
+        step >>= 1
+        current -= step
 
-part2 = ",".join([str(i) for i in bytes[next_byte - 1]])
+part2 = ",".join([str(i) for i in bytes[current - 1]])
 
 print(f"Part 1: {part1}")
 print(f"Part 2: {part2}")
