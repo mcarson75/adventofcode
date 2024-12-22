@@ -57,17 +57,16 @@ def run(input_code, input, phase=None):
 
     opcode = 1
 
-    if phase:
-        while opcode != 99:
-            opcode, new_pos, out = parse_code(code, pos, phase)
-            if out:
-                output = out
-            pos = new_pos
-
-        pos = 0
+    input_index = 0
+    if phase is not None:
+        input = [phase] + [input]
+    else:
+        input = [input]
 
     while opcode != 99:
-        opcode, new_pos, out = parse_code(code, pos, input)
+        opcode, new_pos, out = parse_code(code, pos, input[input_index])
+        if opcode == 3:
+            input_index = 1
         if out:
             output = out
         pos = new_pos
