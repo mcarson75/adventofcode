@@ -3,14 +3,15 @@ from collections import defaultdict
 secrets = [int(l.strip()) for l in open("input.txt", "r", encoding="utf-8").readlines()]
 
 
-def mixprune(p, s):
-    return (p ^ s) & 16777215
+def mixprune(s, shift):
+    if shift < 0:
+        return (s >> -shift ^ s) & 16777215
+    return (s << shift ^ s) & 16777215
 
 
 def get_secret(s):
-    s = mixprune(s << 6, s)
-    s = mixprune(s >> 5, s)
-    s = mixprune(s << 11, s)
+    for shift in [6, -5, 11]:
+        s = mixprune(s, shift)
     return s
 
 
