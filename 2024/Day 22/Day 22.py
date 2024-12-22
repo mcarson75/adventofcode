@@ -4,13 +4,13 @@ secrets = [int(l.strip()) for l in open("input.txt", "r", encoding="utf-8").read
 
 
 def mixprune(p, s):
-    return (p ^ s) % 16777216
+    return (p ^ s) & 16777215
 
 
 def get_secret(s):
-    s = mixprune(s * 64, s)
-    s = mixprune(s // 32, s)
-    s = mixprune(s * 2048, s)
+    s = mixprune(s << 6, s)
+    s = mixprune(s >> 5, s)
+    s = mixprune(s << 11, s)
     return s
 
 
