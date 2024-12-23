@@ -1,14 +1,16 @@
 def parse_code(code, pos, input):
+    def get_parm(opcode, which):
+        mode = int(strcode[3 - which])
+        if mode == 1 or opcode in [3, 4]:
+            return code[pos + which]
+        return code[code[pos + which]]
+
     strcode = "{:0>5}".format(code[pos])
     opcode = int(strcode[-2:])
     if opcode == 99:
         return 99, None, None
-    par_a = (
-        code[pos + 1] if opcode in [3, 4] or int(strcode[2]) else code[code[pos + 1]]
-    )
-
-    if opcode in [1, 2, 5, 6, 7, 8]:
-        par_b = code[pos + 2] if int(strcode[1]) else code[code[pos + 2]]
+    par_a = get_parm(opcode, 1)
+    par_b = get_parm(opcode, 2)
 
     output = None
 
