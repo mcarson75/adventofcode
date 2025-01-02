@@ -1,5 +1,3 @@
-from time import time
-
 input = [
     int(i)
     for i in [l.strip() for l in open("input.txt", "r", encoding="utf-8").readlines()][
@@ -32,7 +30,6 @@ part1 = do_part1(input, 100)
 
 print(f"Part 1: {part1}")
 
-start = time()
 offset = int("".join((str(i) for i in input[:7])))
 
 input *= 10000
@@ -45,7 +42,5 @@ for _ in range(100):
         input[i] = sum % 10
 
 part2 = "".join((str(i) for i in input))[:8]
-end = time()
 
 print(f"Part 2: {part2}")
-print(f"Time: {end-start}s")
