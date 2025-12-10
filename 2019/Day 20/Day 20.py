@@ -19,19 +19,15 @@ uppers = np.array(list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 letters = {complex(x, y): grid[y, x] for (y, x) in np.argwhere(np.isin(grid, uppers))}
 
 portals = {}
-searched = set()
 inner = {}
 outer = {}
 for letter in letters:
-    if letter in searched:
-        continue
     for dir in dirs:
         if letter + dir in letters and letter - dir in map:
             if dir in {1, 1j}:
                 portal = letters[letter] + letters[letter + dir]
             else:
                 portal = letters[letter + dir] + letters[letter]
-            searched |= {letter, letter + dir}
             if portal in portals:
                 if letter - dir in envelope:
                     outer[portals[portal]] = letter - dir
