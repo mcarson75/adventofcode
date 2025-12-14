@@ -32,7 +32,7 @@ for d in sorted(distances):
     if count == CONNECTIONS:
         part1 = prod(sorted([len(c) for c in circuits], reverse=True)[:3])
     if len(circuits) == 1 and len(circuits[0]) == len(points):
-        part2 = list(distances[d])[0][0] * list(distances[d])[1][0]
+        part2 = prod([pt[0] for pt in distances[d]])
         break
 
 print(f"Part 1: {part1}")
