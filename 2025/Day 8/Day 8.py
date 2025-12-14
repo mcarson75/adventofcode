@@ -1,4 +1,5 @@
 from math import prod
+from itertools import combinations
 
 points = [
     tuple(int(i) for i in l.strip("\n").split(","))
@@ -8,13 +9,7 @@ points = [
 CONNECTIONS = 1000
 
 distance = lambda a, b: (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2 + (b[2] - a[2]) ** 2
-
-distances = {}
-for i in range(len(points)):
-    for j in range(i + 1, len(points)):
-        a = points[i]
-        b = points[j]
-        distances[distance(a, b)] = set([a, b])
+distances = {distance(a, b): set([a, b]) for a, b in combinations(points, 2)}
 
 circuits = []
 count = 0
